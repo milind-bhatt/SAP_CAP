@@ -4,11 +4,58 @@
 
 ## Troubleshooting Overview
 
-| Issue No. | Problem                                  |
-| --------- | ---------------------------------------- |
-| 1         | npm ERR! ENOTFOUND npm.sap.com           |
-| 2         | Node.js 20+ required for @sap/cds v9.8.4 |
-| 3         | Hot reload error (impl undefined)        |
+| Issue No. | Problem                                      |
+| --------- | -------------------------------------------- |
+| 0         | Could not load cds module (@sap/cds missing) |
+| 1         | npm ERR! ENOTFOUND npm.sap.com               |
+| 2         | Node.js 20+ required for @sap/cds v9.8.4     |
+| 3         | Hot reload error (impl undefined)            |
+
+---
+
+## (0) Could not load cds module (@sap/cds missing)
+
+### Problem
+
+While running or starting a CAP project, you may see:
+
+```bash
+Could not load cds module
+Module '@sap/cds' not installed
+```
+
+### Root Cause
+
+This happens when the CAP core dependency is missing or `node_modules` is not installed correctly.
+
+---
+
+### Fix
+
+Run the following in your project root:
+
+```bash
+npm install
+```
+
+If the issue persists, explicitly install CAP runtime:
+
+```bash
+npm install @sap/cds
+```
+
+If still broken, do a clean reinstall:
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+Verify installation:
+
+```bash
+npx cds --version
+```
 
 ---
 

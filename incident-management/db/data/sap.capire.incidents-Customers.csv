@@ -1,1 +1,4 @@
-ID,firstName,lastName,email,phone,creditCardNo,createdAt,createdBy,modifiedAt,modifiedBy
+ID,firstName,lastName,email,phone
+1004155,Virat,Watts,daniel.watts@demo.com,+39-555-123
+1004161,Panda,Weathers,stormy.weathers@demo.com,+49-020-022
+1004100,Teddy,Sunshine,sunny.sunshine@demo.com,+49-555-789

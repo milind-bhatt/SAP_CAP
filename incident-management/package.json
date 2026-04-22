@@ -2,7 +2,7 @@
   "name": "incident-management",
   "version": "1.0.0",
   "dependencies": {
-    "@sap/cds": "^9"
+    "@sap/cds": "^9.8.5"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2"
