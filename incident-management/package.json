@@ -8,6 +8,7 @@
     "@cap-js/sqlite": "^2",
     "cds-plugin-ui5": "^0.13.0"
   },
+
   "scripts": {
     "start": "cds-serve",
     "watch-incidents": "cds watch --open ns.incidents/index.html?sap-ui-xx-viewCache=false --livereload false"
@@ -18,5 +19,27 @@
   ],
   "sapux": [
     "app/incidents"
-  ]
+  ],
+    "cds": {
+    "requires": {
+      "[development]": {
+        "auth": {
+          "kind": "basic",
+          "users": {
+            "milind": {
+              "password": "Welcome1!",
+              "roles": [
+                "support"
+              ]
+            },
+            "bob": {
+              "roles": [
+                "support"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
 }
