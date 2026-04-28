@@ -5,11 +5,12 @@
     "@sap/cds": "^9.8.5"
   },
   "devDependencies": {
+    "@cap-js/cds-test": "^1.0.0",
     "@cap-js/sqlite": "^2",
     "cds-plugin-ui5": "^0.13.0"
   },
-
   "scripts": {
+    "test": "npx jest tests/test.js",
     "start": "cds-serve",
     "watch-incidents": "cds watch --open ns.incidents/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
@@ -20,7 +21,7 @@
   "sapux": [
     "app/incidents"
   ],
-    "cds": {
+  "cds": {
     "requires": {
       "[development]": {
         "auth": {
@@ -33,10 +34,9 @@
               ]
             },
             "bob": {
-              "roles": [
-                "support"
-              ]
-            }
+  "password": "test",
+  "roles": ["support"]
+}
           }
         }
       }
