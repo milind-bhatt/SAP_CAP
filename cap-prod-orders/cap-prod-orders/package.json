@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@cap-js/sqlite": "^2.2.1",
+    "@sap-cloud-sdk/connectivity": "^4",
+    "@sap-cloud-sdk/http-client": "^4",
+    "@sap-cloud-sdk/resilience": "^4",
+    "@sap/cds": "^9.9.1",
+    "axios": "^1.15.2"
+  },
+  "cds": {
+    "requires": {
+      "API_PRODUCTION_ORDER_2_SRV": {
+        "kind": "odata",
+        "model": "srv/external/API_PRODUCTION_ORDER_2_SRV"
+      }
+    }
+  }
+}

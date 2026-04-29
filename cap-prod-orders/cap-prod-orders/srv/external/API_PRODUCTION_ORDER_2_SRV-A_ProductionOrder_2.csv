@@ -1,0 +1,4 @@
+ManufacturingOrder,ManufacturingOrderType,ProductionPlant,Material,TotalQuantity,OrderIsReleased,OrderIsClosed
+1000001,PP01,PL01,MAT1,600,X,
+1000002,PP01,PL01,MAT2,200,X,
+1000003,PP02,PL01,MAT3,50,,X
