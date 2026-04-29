@@ -1,39 +1,49 @@
-# 🚀 CAP Production Orders Service (SAP CAP + External OData)
+# CAP Production Orders Service (SAP CAP + External SAP S/4HANA Integration)
 
-A lightweight **SAP CAP (Cloud Application Programming Model)** project that consumes an external SAP S/4HANA Production Order OData service, applies custom business logic, and exposes a simplified API.
+This project demonstrates an SAP Cloud Application Programming Model (CAP) service that integrates with an external SAP S/4HANA OData API for Production Orders. It applies a service-projection architecture with custom business logic to expose a simplified, consumption-ready REST API.
 
----
-
-## 📌 Features
-
-- Consumes external SAP S/4HANA Production Order OData API
-- Projection-based CAP service layer
-- Custom business logic (filtering + enrichment)
-- Derived fields (e.g., Order Status classification)
-- Ready for SAP BTP deployment
-- Extendable with Fiori UI / actions / persistence layer
+The solution is designed in alignment with SAP BTP extension principles and clean core architecture.
 
 ---
 
-## 🏗️ Architecture
+## Solution Overview
+
+The application consumes production order data from an external SAP S/4HANA system via OData service integration. It implements a CAP-based abstraction layer to decouple backend complexity and provide a stable API for downstream consumers.
+
+Key responsibilities include data projection, transformation, and enrichment using Node.js service handlers.
+
+---
+
+## Architecture
 
 ```
 
-External SAP S/4HANA OData API
+SAP S/4HANA OData API
 ↓
-CAP External Service Import
+CAP External Service Import (EDMX/CSDL)
 ↓
-CAP Service Layer (Projection)
+CAP Service Layer (Projection Model)
 ↓
-Custom Node.js Logic Layer
+Node.js Custom Service Logic
 ↓
-REST API Endpoint
+RESTful API Exposure via CAP Runtime
 
 ```
 
 ---
 
-## 📁 Project Structure
+## Key Capabilities
+
+- Integration with SAP S/4HANA OData services using CAP external service modeling  
+- Clean separation of concerns using projection-based service design  
+- Custom business logic implemented in Node.js service handlers  
+- Data filtering and enrichment at service layer  
+- Derived attribute generation for business categorization  
+- SAP BTP-ready extension architecture  
+
+---
+
+## Project Structure
 
 ```
 
@@ -53,35 +63,23 @@ cap-prod-orders/
 
 ---
 
-## ⚙️ Prerequisites
+## Prerequisites
 
-- Node.js (18+ recommended)
-- SAP CAP CLI
+- Node.js (LTS version 18 or higher)
+- SAP CAP Development Kit
 ```bash
 npm install -g @sap/cds-dk
 ````
 
-* VS Code (recommended)
+* Visual Studio Code (recommended for CAP development)
 
 ---
 
-## 🚀 Setup & Run
+## Implementation Details
 
-### 1. Create Project
+### 1. External Service Consumption
 
-```bash
-npm init @sap/cds@latest cap-prod-orders
-cd cap-prod-orders
-```
-
-### 2. Install Dependencies
-
-```bash
-npm install
-npm install @sap/cds axios
-```
-
-### 3. Import External Service
+The SAP S/4HANA OData service is imported into the CAP project using EDMX or service metadata. This enables strongly-typed access to external business objects.
 
 ```bash
 cds import srv/external/API_PRODUCTION_ORDER_2.edmx
@@ -89,49 +87,9 @@ cds import srv/external/API_PRODUCTION_ORDER_2.edmx
 
 ---
 
-### 4. Run the Application
+### 2. Service Definition (Projection Layer)
 
-```bash
-cds watch
-```
-
----
-
-## 🌐 API Endpoint
-
-Once running locally:
-
-```
-http://localhost:4004/production-service/ProductionOrders
-```
-
----
-
-## 🧠 Business Logic
-
-Inside `srv/production-service.js`:
-
-* Filters production orders where:
-
-  * `TotalQuantity > 100`
-* Adds derived field:
-
-  * `OrderStatus = LARGE | NORMAL`
-
-Example logic:
-
-```js
-data = data.filter(order => order.TotalQuantity > 100);
-
-data = data.map(order => ({
-  ...order,
-  OrderStatus: order.TotalQuantity > 500 ? 'LARGE' : 'NORMAL'
-}));
-```
-
----
-
-## 📦 Service Definition
+The CAP service exposes a projection of the external production order entity, ensuring a controlled and simplified API surface.
 
 ```cds
 service ProductionService {
@@ -151,7 +109,37 @@ service ProductionService {
 
 ---
 
-## 🧪 Example Response
+### 3. Custom Business Logic Layer
+
+Business logic is implemented in a Node.js service handler to enrich and filter incoming data.
+
+Responsibilities:
+
+* Filtering production orders based on business threshold
+* Deriving classification attributes for analytical use
+
+```js
+data = data.filter(order => order.TotalQuantity > 100);
+
+data = data.map(order => ({
+  ...order,
+  OrderStatus: order.TotalQuantity > 500 ? 'LARGE' : 'NORMAL'
+}));
+```
+
+---
+
+## API Endpoint
+
+When the CAP service is running locally:
+
+```
+http://localhost:4004/production-service/ProductionOrders
+```
+
+---
+
+## Sample Response
 
 ```json
 [
@@ -172,8 +160,39 @@ service ProductionService {
 
 ---
 
-## 👨‍💻 Author
+## Design Principles Demonstrated
 
-Built as a learning project for SAP CAP + S/4HANA integration.
+* Clean Core Extension Approach (SAP recommended pattern)
+* Service Abstraction using CAP Projection Model
+* External System Decoupling via OData integration
+* Backend Logic Encapsulation in Service Layer
+* Reusable and extensible service architecture
+* SAP BTP cloud-native development alignment
 
+---
+
+## Execution Steps
+
+```bash
+npm init @sap/cds@latest cap-prod-orders
+cd cap-prod-orders
+
+npm install
+npm install @sap/cds axios
+
+cds import srv/external/API_PRODUCTION_ORDER_2.edmx
+
+cds watch
+```
+
+---
+
+## Business Value
+
+This implementation demonstrates how SAP CAP can be used to:
+
+* Extend SAP S/4HANA without modifying core systems
+* Standardize external data consumption via abstraction layers
+* Apply business logic closer to the service layer
+* Build scalable, cloud-ready enterprise extensions
 
